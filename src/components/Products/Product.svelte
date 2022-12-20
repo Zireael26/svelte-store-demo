@@ -1,31 +1,36 @@
 <script lang="ts">
+	import type { CartItem } from '../../schemas/cartItem';
+	import type { Product } from '../../schemas/product';
+
 	import cartItems from '../../store/cart-store';
 	import Button from '../UI/Button.svelte';
 
-	export let id: string;
-	export let title: string;
-	export let price: number;
-	export let description: string;
+	export let product: Product;
 
 	function addToCart() {
-		cartItems.update((items) => {
-			return [
-				...items,
-				{
-					id,
-					title,
-					price
-				}
-			];
-		});
+		const newCartItem: CartItem = {
+			id: product.id,
+			title: product.title,
+			price: product.price,
+			quantity: 1
+		} as CartItem;
+
+		const existingCartItemIndex = $cartItems.findIndex((item) => item.id === newCartItem.id);
+		if (existingCartItemIndex !== -1) {
+			$cartItems[existingCartItemIndex].quantity++;
+		} else {
+			cartItems.update((items) => {
+				return [...items, newCartItem];
+			});
+		}
 	}
 </script>
 
 <div class="product">
 	<div>
-		<h1>{title}</h1>
-		<h2>{price}</h2>
-		<p>{description}</p>
+		<h1>{product.title}</h1>
+		<h2>{product.price}</h2>
+		<p>{product.description}</p>
 	</div>
 	<div>
 		<Button on:click={addToCart}>Add to Cart</Button>

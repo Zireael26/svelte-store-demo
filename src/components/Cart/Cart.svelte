@@ -2,30 +2,22 @@
 	import cartItems from '../../store/cart-store';
 	import CartItem from './CartItem.svelte';
 
-	let items: Array<any>;
-	// export let items = [
-	// 	{
-	// 		id: 'p1',
-	// 		title: 'Test',
-	// 		price: 9.99
-	// 	},
-	// 	{
-	// 		id: 'p2',
-	// 		title: 'Test',
-	// 		price: 9.99
-	// 	}
-	// ];
-	cartItems.subscribe((its) => {
-		// console.log(items);
-		items = its;
-	});
+	// let items: Array<any>;
+	// const unsubscribeCartStore = cartItems.subscribe((its) => {
+	// console.log(items);
+	// items = its;
+	// });
+
+	// onDestroy(() => {
+	//   unsubscribeCartStore();
+	// });
 </script>
 
 <section>
 	<h1>Cart</h1>
 	<ul>
-		{#each items as item (item.id)}
-			<CartItem id={item.id} title={item.title} price={item.price} />
+		{#each $cartItems as cartItem (cartItem.id)}
+			<CartItem {cartItem} />
 		{:else}
 			<p>No items in cart yet!</p>
 		{/each}

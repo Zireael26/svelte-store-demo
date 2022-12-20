@@ -1,16 +1,7 @@
+import type { CartItem } from 'src/schemas/cartItem';
 import { writable } from 'svelte/store';
 
-const cart = writable([
-	{
-		id: 'p3',
-		title: 'Test',
-		price: 9.99
-	},
-	{
-		id: 'p4',
-		title: 'Test',
-		price: 9.99
-	}
-]);
+const items: CartItem[] = [];
+const cart = writable(items);
 
 export default cart;

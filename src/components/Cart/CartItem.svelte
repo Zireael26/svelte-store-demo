@@ -1,9 +1,9 @@
 <script lang="ts">
+	import type { CartItem } from '../../schemas/cartItem';
+	import cartItems from '../../store/cart-store';
 	import Button from '../UI/Button.svelte';
 
-	export let title: string;
-	export let price: number;
-	export let id = '';
+	export let cartItem: CartItem;
 
 	let showDescription = false;
 
@@ -12,14 +12,28 @@
 	}
 
 	function removeFromCart() {
-		// ...
-		console.log('Removing...');
+		const existingCartItemIndex = $cartItems.findIndex((item) => item.id === cartItem.id);
+		if (existingCartItemIndex === -1) {
+			return;
+		} else {
+			const item = $cartItems[existingCartItemIndex];
+			if (item.quantity > 1) {
+				$cartItems[existingCartItemIndex].quantity--;
+			} else {
+				cartItems.update((items) => {
+					return items.filter((item) => item.id !== cartItem.id);
+				});
+			}
+		}
 	}
 </script>
 
 <li>
-	<h1>{title}</h1>
-	<h2>{price}</h2>
+	<div class="item-header">
+		<h1>{cartItem.title}</h1>
+		Quantity: {cartItem.quantity}
+	</div>
+	<h2>{cartItem.price}</h2>
 	<Button mode="outline" on:click={displayDescription}>
 		{showDescription ? 'Hide Description' : 'Show Description'}
 	</Button>
@@ -47,5 +61,10 @@
 	h2 {
 		color: #494949;
 		margin-bottom: 1rem;
+	}
+	.item-header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
 	}
 </style>
