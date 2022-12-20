@@ -1,4 +1,4 @@
-import type { CartItem } from 'src/schemas/cartItem';
+import type { CartItem } from 'src/schemas/cart-item';
 import { writable } from 'svelte/store';
 
 const items: CartItem[] = [];

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { CartItem } from '../../schemas/cartItem';
-	import cartItems from '../../store/cart-store';
-	import Button from '../UI/Button.svelte';
+	import type { CartItem } from '../../schemas/cart_item';
+	import cartItems from '../../store/cart_store';
+	import Button from '../ui/Button.svelte';
 
 	export let cartItem: CartItem;
 
@@ -37,7 +37,7 @@
 	<Button mode="outline" on:click={displayDescription}>
 		{showDescription ? 'Hide Description' : 'Show Description'}
 	</Button>
-	<Button on:click={removeFromCart}>Remove from Cart</Button>
+	<Button on:click={removeFromCart}>{cartItem.quantity > 1 ? 'Reduce Quantity' : 'Remove from Cart'}</Button>
 	{#if showDescription}
 		<p>Not available :(</p>
 	{/if}

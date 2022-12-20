@@ -1,7 +1,6 @@
 <script lang="ts">
-	import cartItems from '../../store/cart-store';
+	import cartItems from '../../store/cart_store';
 	import CartItem from './CartItem.svelte';
-
 	// let items: Array<any>;
 	// const unsubscribeCartStore = cartItems.subscribe((its) => {
 	// console.log(items);

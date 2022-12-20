@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { CartItem } from '../../schemas/cartItem';
+	import type { CartItem } from '../../schemas/cart_item';
 	import type { Product } from '../../schemas/product';
 
-	import cartItems from '../../store/cart-store';
-	import Button from '../UI/Button.svelte';
+	import cartItems from '../../store/cart_store';
+	import Button from '../ui/Button.svelte';
 
 	export let product: Product;
 

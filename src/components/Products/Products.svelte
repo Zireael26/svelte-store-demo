@@ -1,6 +1,6 @@
 <script lang="ts">
 	import products from '../../store/product-store';
-	import Product from '../Products/Product.svelte';
+	import Product from './Product.svelte';
 </script>
 
 <section>
