@@ -1,31 +1,28 @@
 <script lang="ts">
 	import type { CartItem } from '../../schemas/cart-item';
-	import cartItems from '../../store/cart-store';
+	import products from '../../store/product-store';
+	import cart from '../../store/cart-store';
 	
 	import Button from '../ui/Button.svelte';
 
 	export let cartItem: CartItem;
 
 	let showDescription = false;
+	let description = "Not Avaiable!";
 
 	function displayDescription() {
+		const unsubscribe = products.subscribe((items) => {
+			const product = items.find((item) => item.id === cartItem.id);
+			if (product) {
+				description = product.description;
+			}
+		});
 		showDescription = !showDescription;
+		unsubscribe();
 	}
 
 	function removeFromCart() {
-		const existingCartItemIndex = $cartItems.findIndex((item) => item.id === cartItem.id);
-		if (existingCartItemIndex === -1) {
-			return;
-		} else {
-			const item = $cartItems[existingCartItemIndex];
-			if (item.quantity > 1) {
-				$cartItems[existingCartItemIndex].quantity--;
-			} else {
-				cartItems.update((items) => {
-					return items.filter((item) => item.id !== cartItem.id);
-				});
-			}
-		}
+		cart.remove(cartItem.id);
 	}
 </script>
 
@@ -40,7 +37,7 @@
 	</Button>
 	<Button on:click={removeFromCart}>{cartItem.quantity > 1 ? 'Reduce Quantity' : 'Remove from Cart'}</Button>
 	{#if showDescription}
-		<p>Not available :(</p>
+		<p>{description}</p>
 	{/if}
 </li>
 

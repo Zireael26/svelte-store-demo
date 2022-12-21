@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { CartItem } from '../../schemas/cart-item';
 	import type { Product } from '../../schemas/product';
-	import cartItems from '../../store/cart-store';
+	import cart from '../../store/cart-store';
 
 	import Button from '../ui/Button.svelte';
 
@@ -15,14 +15,7 @@
 			quantity: 1
 		} as CartItem;
 
-		const existingCartItemIndex = $cartItems.findIndex((item) => item.id === newCartItem.id);
-		if (existingCartItemIndex !== -1) {
-			$cartItems[existingCartItemIndex].quantity++;
-		} else {
-			cartItems.update((items) => {
-				return [...items, newCartItem];
-			});
-		}
+		cart.add(newCartItem);
 	}
 </script>
 
