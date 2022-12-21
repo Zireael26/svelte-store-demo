@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Button from '../components/ui/Button.svelte';
-	import Cart from '../components/cart/Cart.svelte';
-	import Products from '../components/products/Products.svelte';
+	import Button from '../lib/ui/Button.svelte';
+	import Cart from '../lib/cart/Cart.svelte';
+	import Products from '../lib/products/Products.svelte';
 
 	let showCart = false;
 </script>
